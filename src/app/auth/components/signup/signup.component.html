@@ -1,1 +1,68 @@
-<p>signup works!</p>
+<div class="bg" style="background-color: #f8f8f8;">
+  <nz-spin [nzSpinning]="isSpinning" [nzSize]="'large'" nzTip="Working...">
+    <div class="parent">
+      <div nz-row class="imgDiv">
+        <div nz-col nzSpan="24">
+          <h1>Sign Up</h1>
+        </div>
+      </div>
+      <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+        <nz-form-item>
+          <nz-form-control nzHasFeedback [nzErrorTip]="'The input is not valid E-mail'">
+            <input nz-input formControlName="email" placeholder="E-mail" id="email" type="email" />
+            <ng-template #errorTpl let-control>
+              <ng-container *ngIf="control.hasError('required')">
+                E-mail is Required
+              </ng-container>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+        
+        <nz-form-item>
+          <nz-form-control class="password-gap" nzHasFeedback [nzErrorTip]="'Password is required'">
+            <input nz-input formControlName="password" placeholder="Password" type="password" id="password" />
+            <ng-template #errorTpl let-control>
+              <ng-container *ngIf="control.hasError('required')">
+                Password is Required
+              </ng-container>
+            </ng-template>
+          </nz-form-control>
+
+          <nz-form-control  nzHasFeedback [nzErrorTip]="' Password does not match'">
+            <input nz-input formControlName="checkPassword" placeholder="Confirm Password" type="password" id="checkPassword" />
+            <ng-template #errorTpl let-control>
+              <!-- <ng-container *ngIf="control.hasError('required')">
+                Confirm Password is Required
+              </ng-container> -->
+              <ng-container *ngIf="signupForm.hasError('confirm', ['checkPassword'])">
+                Passwords do not match
+              </ng-container>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-control nzHasFeedback [nzErrorTip]="'Name is required'">
+            <input nz-input formControlName="name" placeholder="Name" type="text" id="name" />
+            <ng-template #errorTpl let-control>
+              <ng-container *ngIf="control.hasError('required')">
+                Name is Required
+              </ng-container>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+        
+        <nz-form-item>
+          <nz-form-control>
+            <button nz-button nzType="primary" [disabled]="signupForm.invalid">Sign Up</button>
+          </nz-form-control>
+        </nz-form-item>
+        
+        <!-- Removed redundant nz-form-item wrapper -->
+        <nz-form-control>
+          or else! <a class="login-link" routerLink="/login">login</a> 
+        </nz-form-control>
+      </form>
+    </div>
+  </nz-spin>
+</div>
